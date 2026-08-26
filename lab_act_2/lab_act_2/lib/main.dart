@@ -1,19 +1,23 @@
 import 'package:flutter/material.dart';
-
+import 'package:lab_act_2/dice_roller.dart';
+ 
 void main() {
   runApp(
     MaterialApp(
       home: Scaffold(
-        body: Container(
+       
+        body:Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(colors: [
-            Colors.pink,
-            Colors.black
-           ] )
+              Colors.blue,
+              Colors.cyan
+            ])
           ),
           child: Center(
-          child: Text("Hello World"))),
-      ),
-    ),
+            child: DiceRoller()
+            ),
+            )
+    )
+            )
   );
 }
