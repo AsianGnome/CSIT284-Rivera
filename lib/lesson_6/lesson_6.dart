@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'screens/expenses_screen.dart';
 
 class Lesson6App extends StatelessWidget {
   const Lesson6App({super.key});
@@ -16,18 +17,19 @@ class Lesson6App extends StatelessWidget {
         ),
         fontFamily: 'Roboto',
         scaffoldBackgroundColor: const Color(0xFFF7F5FA),
-      ),
-      home: const Scaffold(
-        body: Center(
-          child: Text(
-            'Expense Tracker - Lesson 6',
-            style: TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-            ),
+        appBarTheme: const AppBarTheme(
+          centerTitle: true,
+          elevation: 0,
+          backgroundColor: Colors.transparent,
+        ),
+        cardTheme: CardThemeData(
+          elevation: 0,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(18),
           ),
         ),
       ),
+      home: const ExpensesScreen(),
     );
   }
 }
