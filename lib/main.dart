@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const ExpenseTrackerApp());
+  runApp(const ExpenseTracker());
 }
 
-class ExpenseTrackerApp extends StatelessWidget {
-  const ExpenseTrackerApp({super.key});
+class ExpenseTracker extends StatelessWidget {
+  const ExpenseTracker({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,32 +18,101 @@ class ExpenseTrackerApp extends StatelessWidget {
           seedColor: Colors.deepPurple,
           brightness: Brightness.light,
         ),
-        scaffoldBackgroundColor: const Color(0xFFF7F5FC),
+        fontFamily: 'Roboto',
+        scaffoldBackgroundColor: const Color(0xFFF7F5FA),
         appBarTheme: const AppBarTheme(
           centerTitle: true,
           elevation: 0,
+          backgroundColor: Colors.transparent,
         ),
-        cardTheme: const CardThemeData(
-          elevation: 2,
-          margin: EdgeInsets.symmetric(
-            horizontal: 16,
-            vertical: 8,
+        cardTheme: CardThemeData(
+          elevation: 0,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(18),
           ),
         ),
       ),
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Expense Tracker'),
-        ),
-        body: const Center(
-          child: Text(
-            'Track your expenses with ease.',
-            style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.w600,
-            ),
+      home: const ExpensesScreen(),
+    );
+  }
+}
+
+class Expense {
+  final String title;
+  final double amount;
+  final DateTime date;
+  final String category;
+
+  Expense({
+    required this.title,
+    required this.amount,
+    required this.date,
+    required this.category,
+  });
+}
+
+class ExpensesScreen extends StatefulWidget {
+  const ExpensesScreen({super.key});
+
+  @override
+  State<ExpensesScreen> createState() => _ExpensesScreenState();
+}
+
+class _ExpensesScreenState extends State<ExpensesScreen> {
+  final List<Expense> expenses = [
+    Expense(
+      title: 'Lunch',
+      amount: 150,
+      date: DateTime.now(),
+      category: 'Food',
+    ),
+    Expense(
+      title: 'Jeepney Fare',
+      amount: 30,
+      date: DateTime.now(),
+      category: 'Transport',
+    ),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text(
+          'Expense Tracker',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
           ),
         ),
+      ),
+      body: ListView.builder(
+        padding: const EdgeInsets.all(16),
+        itemCount: expenses.length,
+        itemBuilder: (context, index) {
+          final expense = expenses[index];
+
+          return Card(
+            margin: const EdgeInsets.only(bottom: 12),
+            child: ListTile(
+              leading: const Icon(Icons.receipt),
+              title: Text(
+                expense.title,
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              subtitle: Text(
+                '${expense.category} • ${expense.date.day}/${expense.date.month}/${expense.date.year}',
+              ),
+              trailing: Text(
+                '₱${expense.amount.toStringAsFixed(2)}',
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          );
+        },
       ),
     );
   }
